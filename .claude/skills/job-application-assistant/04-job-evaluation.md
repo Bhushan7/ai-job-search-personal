@@ -1,173 +1,206 @@
-# Job Evaluation Framework
+# Job Evaluation Framework — Bhushan Murari
 
-<!-- SETUP: Skill match areas and career goals are personalized by running /setup -->
+*Used by Claude during /apply to score a job posting before proceeding to CV drafting.
+Always evaluate fit before generating any documents. Present the scored assessment to
+the user and ask for confirmation if fit is below 70.*
 
-## Scoring Dimensions
+---
 
-Evaluate each job posting against these five dimensions:
+## Scoring Method
 
-### 1. Technical Skills Match (0-100)
-How well do the required/preferred skills align with the candidate's capabilities?
+Score each dimension below. Sum the weighted scores for a total out of 100.
+Present results as a scorecard, then give a **Recommend / Proceed with caveats /
+Pass** verdict with a one-paragraph rationale.
 
-| Score | Meaning |
-|-------|---------|
-| 80-100 | Core requirements are primary skills |
-| 60-79 | Most requirements match, 1-2 gaps that are learnable |
-| 40-59 | Partial match, significant upskilling needed |
-| 0-39 | Fundamental mismatch |
+| Dimension | Weight | Max points |
+|-----------|--------|------------|
+| Domain match | 30% | 30 |
+| Skills match | 25% | 25 |
+| Seniority & scope | 20% | 20 |
+| Location fit | 15% | 15 |
+| Company / sector fit | 10% | 10 |
+| **Total** | | **100** |
 
-**Strong match areas:** [YOUR_PRIMARY_SKILLS]
-**Moderate match areas:** [YOUR_SECONDARY_SKILLS]
-**Weak match areas:** [SKILLS_YOU_LACK]
+---
 
-### 2. Experience Match (0-100)
-Does work history align with what they're looking for?
+## Dimension 1 — Domain Match (30 pts)
 
-| Score | Meaning |
-|-------|---------|
-| 80-100 | Direct experience in the same domain and role type |
-| 60-79 | Related experience, transferable skills clear |
-| 40-59 | Adjacent experience, would need to make the case |
-| 0-39 | Unrelated experience |
+*Does the role's core domain overlap with Bhushan's primary expertise?*
 
-**Strong:** [YOUR_DIRECT_EXPERIENCE_DOMAINS]
-**Moderate:** [YOUR_ADJACENT_EXPERIENCE]
-**Entry-level:** [ROLES_WITH_LIMITED_EXPERIENCE]
+| Match level | Points |
+|-------------|--------|
+| Primary domain: Wallet / Payments Platform / Ledger / Financial Infrastructure | 28–30 |
+| Primary domain: Fraud, Risk, AML, or Chargeback Management | 25–28 |
+| Primary domain: iGaming / Social Gaming Monetisation / Bonus Platform | 22–26 |
+| Primary domain: Digital Banking / FinTech with strong payments component | 20–24 |
+| Adjacent domain: eCommerce payments, subscription billing, marketplace payments | 15–20 |
+| Weak overlap: Generic platform PM, no financial/payments angle | 5–12 |
+| No overlap: Pure B2C consumer product with no payments/monetisation/fintech | 0–5 |
 
-### 3. Behavioral/Culture Fit (0-100)
-Does the role and company culture match the behavioral profile?
+**Auto-flag if:** Role is described as "Growth PM", "Consumer PM", or "Social Media PM"
+with no financial infrastructure component — score this dimension ≤ 5 and note the gap
+explicitly.
 
-| Score | Meaning |
-|-------|---------|
-| 80-100 | Culture strongly matches behavioral preferences |
-| 60-79 | Mixed signals but mostly compatible |
-| 40-59 | Some friction areas |
-| 0-39 | Significant culture mismatch |
+---
 
-**Red flags to research:** Department disorganization, work dominated by maintenance over development, poor chemistry with leadership, culture mismatches. Check reviews, media coverage, LinkedIn connections, and network contacts for insider perspective.
+## Dimension 2 — Skills Match (25 pts)
 
-### 4. Location & Logistics (Pass/Fail + Notes)
-- Within commute range: PASS
-- Remote with occasional office: PASS
-- Requires relocation: FAIL (deal-breaker)
-- Frequent international travel: FLAG (discuss with user)
+*Tally how many of the role's required skills appear in Bhushan's profile.*
 
-### 5. Career Alignment & Motivation (0-100)
-Does this role advance career goals and contain tasks that energize?
+### Must-have skills (from Bhushan's core stack):
 
-| Score | Meaning |
-|-------|---------|
-| 80-100 | Strongly aligned with career direction, clear growth path |
-| 60-79 | Good role but only partially aligned with long-term goals |
-| 40-59 | Decent job but doesn't build toward career goals |
-| 0-39 | Dead end or backwards step |
+**Wallet & Platform:**
+Ring-fenced balance design · Wallet state machine / ledger architecture ·
+WaaS / API contract ownership · PSP integration · Smart routing logic ·
+Balance reconciliation · Platform configurability · Event-driven systems
 
-**Career goals:**
-- [YOUR_CAREER_GOAL_1]
-- [YOUR_CAREER_GOAL_2]
-- [YOUR_CAREER_GOAL_3]
+**Regulatory & Compliance:**
+AML / KYC workflow design · 3DS / SCA · Multi-jurisdiction regulatory translation ·
+UKGC / MGA / RBI / Spain SAFE compliance · Responsible gambling tooling
 
-**Motivation filter:** Evaluate not just whether you *can* do the tasks, but whether the tasks will *energize* you. Consider:
-- Tasks that energize: [YOUR_ENERGIZING_TASKS]
-- Tasks that drain: [YOUR_DRAINING_TASKS]
-- Non-task factors: leadership style, department culture, company values, degree of autonomy
+**Payments:**
+PSP onboarding · APM integration · Deposit & withdrawal flows ·
+Decline-reason analytics · Purchase recovery · Chargeback management ·
+Settlement & reconciliation · Fraud detection / transaction monitoring
 
-**Life situation alignment:** Consider personal constraints:
-- **Security**: [YOUR_FINANCIAL_SITUATION_CONTEXT]
-- **Flexibility**: [YOUR_SCHEDULE_CONSTRAINTS]
-- **Professional development**: [YOUR_GROWTH_PRIORITIES]
+**Product Delivery:**
+PRD / user story writing · Agile / Scrum · Backlog management ·
+Cross-functional squad leadership · Roadmap prioritisation · API product management ·
+A/B testing (Optimizely) · UAT / production sign-offs
 
-### 6. Salary Benchmark (Optional)
+**Analytics:**
+SQL · Looker · Funnel & cohort analysis · Revenue modelling · Metric definition
 
-If the salary lookup tool is configured (`salary_data.json` exists), look up the company:
+**AI / Tooling:**
+Claude API · Claude Code · GitHub · Supabase · Vercel · Cloudflare · Figma
+
+### Scoring:
+
+| Coverage | Points |
+|----------|--------|
+| 80–100% of JD required skills covered | 22–25 |
+| 60–79% covered | 16–21 |
+| 40–59% covered, strong adjacent skills | 10–15 |
+| Below 40% covered | 0–9 |
+
+**Note any hard gaps** — skills the JD treats as essential that Bhushan does not have.
+Flag these explicitly so they can be addressed in the cover letter or interview prep.
+
+---
+
+## Dimension 3 — Seniority & Scope (20 pts)
+
+*Is the level and scope a genuine match?*
+
+| Scenario | Points |
+|----------|--------|
+| Senior PM title, clear cross-functional scope, owns a product area end-to-end | 18–20 |
+| Senior PM title but narrow scope (single feature, single market) | 13–17 |
+| Lead PM / Principal PM — step-up opportunity with justified scope | 16–20 |
+| Staff PM / Group PM — requires managing other PMs (assess carefully) | 12–16 |
+| PM (not Senior) — lower level, flag to user | 5–10 |
+| Head of Product / Director — assess if scope is realistic step-up | 10–16 |
+| IC contributor with no PM responsibilities | 0–5 |
+
+**Auto-flag if:** Title is "Associate PM", "Junior PM", or equivalent — score ≤ 8 and
+note deal-breaker risk.
+
+---
+
+## Dimension 4 — Location Fit (15 pts)
+
+*Does the role's location match Bhushan's stated preferences?*
+
+| Location scenario | Points |
+|-------------------|--------|
+| Fully remote (India timezone acceptable) | 15 |
+| Hybrid — Bengaluru | 13–15 |
+| Hybrid — Hyderabad or Pune | 12–14 |
+| Hybrid — Mumbai or Delhi | 8–11 |
+| Onsite — Bengaluru, Hyderabad, or Pune | 11–13 |
+| Onsite — Mumbai or Delhi | 7–10 |
+| Fully remote but timezone mismatch (e.g. US EST only) | 8–12 |
+| Onsite — Australia, UK, EU, UAE, Singapore, Malaysia (relocation required) | 8–12 |
+| Onsite — North America | 2–5 |
+| Location not stated | Score 10 and flag as unknown; recommend clarifying before applying |
+
+---
+
+## Dimension 5 — Company / Sector Fit (10 pts)
+
+*Does the company's stage, sector, and culture suit Bhushan's profile and preferences?*
+
+| Scenario | Points |
+|----------|--------|
+| Regulated iGaming operator (Entain, Flutter, Bet365, DraftKings, Aristocrat etc.) | 9–10 |
+| Payments infrastructure (Stripe, Adyen, Razorpay, Cashfree, Airwallex, Nuvei etc.) | 9–10 |
+| Neo-bank / digital banking (Revolut, Wise, Jupiter, Fi, Slice, Niyo, Zeta etc.) | 8–10 |
+| FinTech with strong payments/wallet/lending component (CRED, PhonePe, Paytm, BharatPe) | 8–10 |
+| eCommerce / marketplace with payments infrastructure team | 6–8 |
+| Series B+ startup, clear PMF, funded, payments/fintech adjacent | 6–8 |
+| Enterprise SaaS with financial module (e.g. billing, invoicing, treasury) | 5–7 |
+| Pre-seed / seed startup without PMF — risky fit | 2–4 |
+| Consumer product, no financial/payments component — deal-breaker territory | 0–3 |
+
+---
+
+## Verdict Thresholds
+
+| Total score | Verdict | Action |
+|-------------|---------|--------|
+| 85–100 | ✅ **Strong fit — Recommend** | Proceed to CV tailoring immediately |
+| 70–84 | ⚡ **Good fit — Proceed** | Proceed; note gaps in cover letter |
+| 55–69 | ⚠️ **Partial fit — Proceed with caveats** | Flag gaps clearly; ask user to confirm before generating docs |
+| 40–54 | 🔶 **Weak fit — Caution** | Present gaps; only proceed if user explicitly confirms |
+| Below 40 | ❌ **Poor fit — Pass** | Recommend skipping; explain why |
+
+---
+
+## Fit Assessment Output Format
+
+When presenting the assessment to the user, use this format:
+
 ```
-python salary_lookup.py "<Company Name>" --json
+## Fit Assessment — [Company] | [Role Title]
+
+| Dimension | Score | Max | Notes |
+|-----------|-------|-----|-------|
+| Domain match | X | 30 | [1-line rationale] |
+| Skills match | X | 25 | [1-line rationale] |
+| Seniority & scope | X | 20 | [1-line rationale] |
+| Location fit | X | 15 | [1-line rationale] |
+| Company / sector | X | 10 | [1-line rationale] |
+| **Total** | **X** | **100** | |
+
+**Verdict:** [✅ / ⚡ / ⚠️ / 🔶 / ❌] [Recommend / Good fit / Proceed with caveats / Caution / Pass]
+
+**Why this role fits:**
+[2–3 sentences on the strongest alignment points]
+
+**Gaps to address:**
+[Bullet list of any missing skills, level mismatch, location issues, or domain gaps —
+be specific. These become the focus of cover letter framing.]
+
+**Recommended bullet stack-ranking for this role:**
+[List the top 5–6 bullets from 01-candidate-profile.md that are most relevant to this
+specific JD, in order of priority]
 ```
 
-If a city is known from the posting, add `--city "<City>"` to narrow results.
+---
 
-Present findings as:
-```
-### Salary Benchmark
-| Metric | Value |
-|--------|-------|
-| [Category] index | XX.X (+/-X.X% vs baseline) |
-| Overall index | XX.X (+/-X.X% vs baseline) |
-```
+## JD Parsing Guide
 
-Interpret results relative to the baseline defined in the data file's metadata. For index-based data, higher typically means above-market compensation.
+When reading a job description, extract these fields before scoring:
 
-If the salary tool is not configured, skip this section.
+- **Role title** — exact title as listed
+- **Seniority signals** — years of experience required, team size, reporting line
+- **Domain** — what the product/platform actually is (wallet, payments, fraud, gaming etc.)
+- **Must-have skills** — skills listed as "required" or "essential"
+- **Nice-to-have skills** — skills listed as "preferred" or "bonus"
+- **Location & work mode** — remote / hybrid / onsite + city/country
+- **Company type** — startup / scale-up / enterprise / regulated operator
+- **Key JD phrases** — exact language to mirror in the CV and cover letter (e.g. "ring-fenced balances", "payment routing", "wallet ledger", "regulatory compliance")
 
-## Output Format
-
-Present the evaluation as:
-
-```
-## Job Fit Evaluation: [Role] at [Company]
-
-| Dimension | Score | Notes |
-|-----------|-------|-------|
-| Technical Skills | XX/100 | [brief note] |
-| Experience Match | XX/100 | [brief note] |
-| Behavioral Fit | XX/100 | [brief note] |
-| Location | PASS/FAIL | [brief note] |
-| Career Alignment | XX/100 | [brief note] |
-
-**Overall Score: XX/100** (weighted average of scored dimensions)
-
-### Verdict: [Strong Fit / Good Fit / Moderate Fit / Weak Fit / Poor Fit]
-
-### Key Strengths for This Role
-- [bullet points]
-
-### Gaps to Address
-- [bullet points]
-
-### Recommendation
-[1-2 sentences: apply/skip/apply with caveats]
-
-### Company Research Checklist
-- [ ] Checked company website (mission, values, recent news)
-- [ ] Checked review sites (Glassdoor, Jobindex, etc.)
-- [ ] Checked LinkedIn for team size, recent hires, connections
-- [ ] Checked media for restructuring, growth, or workplace issues
-- [ ] Identified network contacts who may know the team/manager
-```
-
-## Weighting
-- Technical Skills: 30%
-- Experience Match: 25%
-- Behavioral Fit: 15%
-- Career Alignment: 30%
-
-(Location is pass/fail, not weighted)
-
-## Thresholds
-- **Strong Fit** (75+): Definitely apply, tailor everything
-- **Good Fit** (60-74): Apply, address gaps in cover letter
-- **Moderate Fit** (45-59): Consider carefully, discuss with user
-- **Weak Fit** (30-44): Probably skip unless strategic reasons
-- **Poor Fit** (<30): Skip
-
-## Pre-Application: Call the Employer (Best Practice)
-
-Before writing the application, consider whether the candidate should call the contact person listed in the posting. **Only call if there are substantive questions** - never call just to "be remembered."
-
-### When to Suggest Calling
-- The posting has unclear or ambiguous requirements
-- It's unclear which competencies are essential vs. nice-to-have
-- The role description is vague about day-to-day tasks
-- There's a named contact person who invites questions
-
-### Good Questions to Ask
-- "What are the primary challenges in this role?"
-- "How is time typically divided across the listed responsibilities?"
-- "Which competencies are most critical for success in this position?"
-- "What does success look like in the first 6-12 months?"
-
-### Rules for the Call
-- Prepare a 30-second "elevator pitch" about your background in case they ask
-- The call's purpose is **gathering information**, not delivering a pitch
-- Take notes - use what you learn to tailor the application
-- Reference the conversation naturally in the cover letter ("After speaking with [name], I was especially drawn to...")
+**Mirror the JD's language** in the tailored CV — if the JD says "payment orchestration",
+use that phrase rather than "smart routing"; if it says "financial controls", use that
+rather than "balance reconciliation". Same concepts, JD-native vocabulary.
